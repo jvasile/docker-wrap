@@ -70,9 +70,11 @@ def do_wrap_cmd(opts, stage, cmd):
         with cd(script_dir):
             if script_dir.startswith("/"):
                 script = os.path.join(script_dir, opts["x-wrap"][cmd][stage])
-                subprocess.run(script, shell=True)
+                cp = subprocess.run(script, shell=True)
             else:
-                subprocess.run("./" + opts["x-wrap"][cmd][stage], shell=True)
+                cp = subprocess.run("./" + opts["x-wrap"][cmd][stage], shell=True)
+            if cp.returncode != 0:
+                sys.exit(f"x-wrap {stage}-{cmd} failed")
 
 
 # Advise the build method of the Service class
