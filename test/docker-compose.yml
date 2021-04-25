@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  hello:
+    build: hello
+    x-wrap:
+      build:
+        pre: pre-build
+        post: post-build
