@@ -26,7 +26,6 @@ import compose.cli.main  # type: ignore
 from compose.service import Service  # type: ignore
 
 
-
 @contextmanager
 def cd(path: Path) -> Generator[None, None, None]:
     """Sets the cwd within the context
@@ -79,7 +78,7 @@ def do_wrap_cmd(opts: Dict[str, Any], stage: str, cmd: str) -> None:
 def advise_build() -> None:
     """Advise the build method of the Service class"""
 
-    def build_replacement(self:Service, *args:Any, **kwargs:Any) -> None:
+    def build_replacement(self: Service, *args: Any, **kwargs: Any) -> None:
         do_wrap_cmd(self.options, "pre", "build")
         build_orig(self, *args, **kwargs)
         do_wrap_cmd(self.options, "post", "build")
