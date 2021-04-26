@@ -61,13 +61,14 @@ directory.  If you set context, it will be the context.
 
 ## Contributing
 
-Activity is in the [https://github.com/jvasile/docker-wrap.git](GitHub
+Activity is in the [GitHub Repo](https://github.com/jvasile/docker-wrap.git)
 repo) and you can always pop in to
 [chat.opentechstrategies.com](chat.opentechstrategies.com) as well.
 
-Please run [https://code.librehq.com/james/quest-for-awesome](qa) on
-the code before submitting a PR.  That script just runs black, isort,
-mypy, and tests (tho we have no tests yet).
+Please run the [python qa
+script](https://code.librehq.com/james/quest-for-awesome) on the code
+before submitting a PR.  That script just runs black, isort, mypy, and
+tests (tho we have no tests yet).
 
 ## License and Copyright
 
