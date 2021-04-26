@@ -30,6 +30,20 @@ from compose.service import Service
 pp = pprint.PrettyPrinter(indent=4).pprint
 
 
+"""If we ever want to ditch the x- prefix to our wrap option, we
+might want to adjust the schema.  This code is a start.
+
+from compose.project import Project
+# Adjust schema to accept our wrap option
+def load_jsonschema_replace(version):
+    schema = load_json_schema_orig(version)
+    return schema
+load_json_schema_orig = validation.load_jsonschema
+validation.load_jsonschema = load_jsonschema_replace
+
+"""
+
+
 @contextmanager
 def cd(path: Path):
     """Sets the cwd within the context
