@@ -59,6 +59,16 @@ Something like this would work:
 The default directory for running `pre-build.sh` will be the `foo`
 directory.  If you set context, it will be the context.
 
+## Contributing
+
+Activity is in the [https://github.com/jvasile/docker-wrap.git](GitHub
+repo) and you can always pop in to
+[chat.opentechstrategies.com](chat.opentechstrategies.com) as well.
+
+Please run [https://code.librehq.com/james/quest-for-awesome](qa) on
+the code before submitting a PR.  That script just runs black, isort,
+mypy, and tests (tho we have no tests yet).
+
 ## License and Copyright
 
 Copyright 2020 James Vasile, published under the terms of AGPLv3 or
