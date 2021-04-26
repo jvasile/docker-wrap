@@ -28,6 +28,10 @@ structure, `docker-wrap` will use that script as the
 
 `docker-wrap` passes all arguments on to `docker-compose`.
 
+Something like this would work:
+
+    docker-wrap up foo
+
 ## Sample docker-compose.yml
 
     version: "3.9"
