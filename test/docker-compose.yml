@@ -6,3 +6,6 @@ services:
       build:
         pre: pre-build
         post: post-build
+      up:
+        pre: pre-up
+        post: post-up

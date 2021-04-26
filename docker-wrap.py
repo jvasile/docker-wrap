@@ -24,9 +24,9 @@ if version.parse(compose.__version__) < min_version:
 # Import after validating version because older ones have different submodules
 import compose.cli  # type: ignore
 import compose.cli.main  # type: ignore
+from compose.cli.log_printer import LogPrinter #type: ignore
 from compose.service import Service  # type: ignore
 from compose.project import Project  # type: ignore
-
 
 @contextmanager
 def cd(path: Path) -> Generator[None, None, None]:
@@ -60,7 +60,7 @@ def do_wrap_cmd(opts: Dict[str, Any], stage: str, cmd: str) -> None:
 
     # Run any indicated script
     if stage in opts["x-wrap"][cmd]:
-        script_dir = opts[cmd].get("context", ".")
+        script_dir = opts['build']['context']
         with cd(script_dir):
             script = opts["x-wrap"][cmd][stage]
             if script_dir.startswith("/"):
@@ -95,10 +95,28 @@ def advise_log_printer_from_project() -> None:
 
     """
 
+    def wrap_run(self:LogPrinter):
+        if not self.containers:
+            return
+
+
+        for c in self.containers:
+            service = [s for s in self.services if s.name == c.service][0]
+            do_wrap_cmd(service.options, "pre", "up")
+
+        orig_run(self)
+
+        for c in self.containers:
+            service = [s for s in self.services if s.name == c.service][0]
+            do_wrap_cmd(service.options, "post", "up")
+
     def replacement(project: Project, *args: Any, **kwargs: Any) -> None:
         log_printer = orig(project, *args, **kwargs)
         log_printer.services = project.services
         return log_printer
+
+    orig_run = LogPrinter.run
+    LogPrinter.run = wrap_run
 
     orig = compose.cli.main.log_printer_from_project
     compose.cli.main.log_printer_from_project = replacement

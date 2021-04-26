@@ -14,8 +14,6 @@ triggered by an `up` command.
 The pre-build script runs before `Dockerfile` is loaded, so you can
 *generate* your `Dockerfile` from your pre-build script.
 
-Note: we currently support pre/post build, but not pre/post up yet.
-
 ## Install
 
 Just `git clone` and then symlink it in to your path:
@@ -64,7 +62,7 @@ directory.  If you set context, it will be the context.
     [X] Pre/post build scripts
     [X] Allow pre script to replace Dockerfile
     [ ] Allow pre script to replace docker-compose
-    [ ] Pre/post up scripts
+    [X] Pre/post up scripts
     [ ] Use `wrap` instead of `x-wrap`
 
 ## Contributing
