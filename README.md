@@ -1,17 +1,17 @@
 # Docker-Wrap
 
-A drop-in wrapper for docker-compose that runs pre/post up and pre/post build scripts.
+A drop-in wrapper for `docker-compose` that runs pre/post up and pre/post build scripts.
 
-I frequently have scripts I want to run before/after docker-compose
+I frequently have scripts I want to run before/after `docker-compose`
 build/up.  This wrapper creates a standard way to run everything by
-just wrapping docker-compose and passing through all arguments.  You
-use it wherever you normally use docker-compose.  You could even
+just wrapping `docker-compose` and passing through all arguments.  You
+use it wherever you normally use `docker-compose`.  You could even
 symlink it as docker-compose in your /usr/local/bin.
 
 The wrapper is smart enough to run your pre-build, even when build is
-triggered by an 'up' command.
+triggered by an `up` command.
 
-Note: we currently support pre/post build, but not pre/post use yet.
+Note: we currently support pre/post build, but not pre/post up yet.
 
 ## Install
 
