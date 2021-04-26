@@ -9,8 +9,9 @@ import subprocess
 import sys
 from contextlib import contextmanager
 from pathlib import Path
+from typing import Any, Dict, Generator
 
-import compose
+import compose  # type: ignore
 from packaging import version
 
 # Import compose and make sure our docker-compose is the correct version for monkeypatching
@@ -21,15 +22,15 @@ if version.parse(compose.__version__) < min_version:
     )
 
 # Import after validating version because older ones have different submodules
-import compose.cli
-import compose.cli.main
-from compose.service import Service
+import compose.cli  # type: ignore
+import compose.cli.main  # type: ignore
+from compose.service import Service  # type: ignore
 
 pp = pprint.PrettyPrinter(indent=4).pprint
 
 
 @contextmanager
-def cd(path: Path):
+def cd(path: Path) -> Generator[None, None, None]:
     """Sets the cwd within the context
 
     Args:
@@ -49,7 +50,7 @@ def cd(path: Path):
         os.chdir(origin)
 
 
-def do_wrap_cmd(opts, stage, cmd):
+def do_wrap_cmd(opts: Dict[str, Any], stage: str, cmd: str) -> None:
     """Execute a pre- or post- command
 
     This function checks the docker-compose options for a pre- or
@@ -77,10 +78,10 @@ def do_wrap_cmd(opts, stage, cmd):
                 sys.exit(f"x-wrap {stage}-{cmd} failed")
 
 
-def advise_build():
+def advise_build() -> None:
     """Advise the build method of the Service class"""
 
-    def build_replacement(self, *args, **kwargs):
+    def build_replacement(self:Service, *args:Any, **kwargs:Any) -> None:
         do_wrap_cmd(self.options, "pre", "build")
         build_orig(self, *args, **kwargs)
         do_wrap_cmd(self.options, "post", "build")
