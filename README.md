@@ -61,9 +61,10 @@ directory.  If you set context, it will be the context.
 
 ## Contributing
 
-Activity is in the [GitHub Repo](https://github.com/jvasile/docker-wrap.git)
-repo) and you can always pop in to
-[chat.opentechstrategies.com](chat.opentechstrategies.com) as well.
+Activity is in the [GitHub
+Repo](https://github.com/jvasile/docker-wrap.git) and you can always
+pop in to [chat.opentechstrategies.com](chat.opentechstrategies.com)
+as well.
 
 Please run the [python qa
 script](https://code.librehq.com/james/quest-for-awesome) on the code
