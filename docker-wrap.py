@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""
+Monkeypatch docker-compose to call pre/post build scripts.
+"""
 import os
 import pprint
 import subprocess
@@ -8,6 +11,16 @@ from contextlib import contextmanager
 from pathlib import Path
 
 import compose
+from packaging import version
+
+# Import compose and make sure our docker-compose is the correct version for monkeypatching
+min_version = version.parse("1.28.6")
+if version.parse(compose.__version__) < min_version:
+    sys.exit(
+        f"Underlying docker-compose must be version {min_version}+ not {compose.__version__}"
+    )
+
+# Import after validating version because older ones have different submodules
 import compose.cli
 import compose.cli.main
 import compose.config
@@ -15,20 +28,6 @@ import compose.config.validation as validation
 from compose.service import Service
 
 pp = pprint.PrettyPrinter(indent=4).pprint
-
-
-"""If we ever want to ditch the x- prefix to our wrap option, we
-might want to adjust the schema.  This code is a start.
-
-from compose.project import Project
-# Adjust schema to accept our wrap option
-def load_jsonschema_replace(version):
-    schema = load_json_schema_orig(version)
-    return schema
-load_json_schema_orig = validation.load_jsonschema
-validation.load_jsonschema = load_jsonschema_replace
-
-"""
 
 
 @contextmanager
@@ -68,23 +67,29 @@ def do_wrap_cmd(opts, stage, cmd):
     if stage in opts["x-wrap"][cmd]:
         script_dir = opts[cmd].get("context", ".")
         with cd(script_dir):
+            script = opts["x-wrap"][cmd][stage]
             if script_dir.startswith("/"):
-                script = os.path.join(script_dir, opts["x-wrap"][cmd][stage])
+                script = os.path.join(script_dir, script)
+                print(f"Running {stage}-{cmd} {script}")
                 cp = subprocess.run(script, shell=True)
             else:
-                cp = subprocess.run("./" + opts["x-wrap"][cmd][stage], shell=True)
+                print(f"Running {stage}-{cmd} {script}")
+                cp = subprocess.run("./" + script, shell=True)
             if cp.returncode != 0:
                 sys.exit(f"x-wrap {stage}-{cmd} failed")
 
 
-# Advise the build method of the Service class
-def build_replacement(self, *args, **kwargs):
-    do_wrap_cmd(self.options, "pre", "build")
-    build_orig(self, *args, **kwargs)
-    do_wrap_cmd(self.options, "post", "build")
+def advise_build():
+    """Advise the build method of the Service class"""
+
+    def build_replacement(self, *args, **kwargs):
+        do_wrap_cmd(self.options, "pre", "build")
+        build_orig(self, *args, **kwargs)
+        do_wrap_cmd(self.options, "post", "build")
+
+    build_orig = Service.build
+    Service.build = build_replacement
 
 
-build_orig = Service.build
-Service.build = build_replacement
-
+advise_build()
 compose.cli.main.main()
