@@ -11,6 +11,9 @@ symlink it as docker-compose in your /usr/local/bin.
 The wrapper is smart enough to run your pre-build, even when build is
 triggered by an `up` command.
 
+The pre-build script runs before `Dockerfile` is loaded, so you can
+*generate* your `Dockerfile` from your pre-build script.
+
 Note: we currently support pre/post build, but not pre/post up yet.
 
 ## Install
