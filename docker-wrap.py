@@ -3,6 +3,7 @@
 """
 Monkeypatch docker-compose to call pre/post build scripts.
 """
+
 import os
 import subprocess
 import sys
@@ -30,11 +31,8 @@ from compose.service import Service  # type: ignore
 def cd(path: Path) -> Generator[None, None, None]:
     """Sets the cwd within the context
 
-    Args:
-        path (Path): The path to the cwd
-
-    Yields:
-        None
+    Args: path (Path): The path to the cwd
+    Yields: None
 
     Thanks to https://dev.to/teckert/changing-directory-with-a-python-context-manager-2bj8
     """
@@ -87,5 +85,6 @@ def advise_build() -> None:
     Service.build = build_replacement
 
 
-advise_build()
-compose.cli.main.main()
+if __name__ == "__main__":
+    advise_build()
+    compose.cli.main.main()
