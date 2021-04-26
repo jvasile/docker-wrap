@@ -30,14 +30,14 @@ Eventually, we want to install like this:
 ## Use
 
 For any service, add a dict called "x-wrap" with one or more keys that
-correspond to a docker-compose command (see `docker-compose --help` for
-the list).  Those command keys should indicate dicts that contain
-`pre` or `post` keys whose values are paths to scripts to run.
+correspond to 'build' or 'use'.  Those command keys should indicate
+dicts that contain `pre` or `post` keys whose values are paths to
+scripts to run.  See the example below.
 
 `docker-wrap` will run any `pre` script before it runs your command,
-then run any `post` script.  If a `pre` script prints a valid yaml
-structure, `docker-wrap` will use that script as the
-`docker-compose.yml` for running the command.
+then run any `post` script.  A future feature will that if a `pre`
+script prints a valid yaml structure, `docker-wrap` will use that
+script as the `docker-compose.yml` for running the command.
 
 `docker-wrap` passes all arguments on to `docker-compose`.
 
