@@ -8,6 +8,9 @@ just wrapping docker-compose and passing through all arguments.  You
 use it wherever you normally use docker-compose.  You could even
 symlink it as docker-compose in your /usr/local/bin.
 
+The wrapper is smart enough to run your pre-build, even when build is
+triggered by an 'up' command.
+
 Note: we currently support pre/post build, but not pre/post use yet.
 
 ## Install
