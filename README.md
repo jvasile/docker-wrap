@@ -2,13 +2,20 @@
 
 A drop-in wrapper for docker-compose that runs pre/post up and pre/post build scripts.
 
+I frequently have scripts I want to run before/after docker-compose
+build/up.  This wrapper creates a standard way to run everything by
+just wrapping docker-compose and passing through all arguments.  You
+use it wherever you normally use docker-compose.  You could even
+symlink it as docker-compose in your /usr/local/bin.
+
 Note: we currently support pre/post build, but not pre/post use yet.
 
 ## Install
 
-For now, just do
+Just `git clone` and then symlink it in to your path:
 
-    ln -sf /path/to/docker-wrap.py /usr/local/bin/docker-wrap
+    git clone https://github.com/jvasile/docker-wrap.git /path/to/wrap
+    ln -sf /path/to/wrap/docker-wrap.py /usr/local/bin/docker-wrap
 
 Eventually, we want to install like this:
 
@@ -35,9 +42,12 @@ structure, `docker-wrap` will use that script as the
       foo:
         x-wrap:
             build:
-              pre: pre-build.sh
+              pre: pre-build.sh bar baz
         build: bar
 
+
+The default directory for running `pre-build.sh` will be the `foo`
+directory.  If you set context, it will be the context.
 
 ## License and Copyright
 
