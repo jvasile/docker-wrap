@@ -27,10 +27,10 @@ Eventually, we want to install like this:
 
 ## Use
 
-For any service, add a dict called "x-wrap" with one or more keys that
-correspond to 'build' or 'use'.  Those command keys should indicate
-dicts that contain `pre` or `post` keys whose values are paths to
-scripts to run.  See the example below.
+For any service, add an associative array `x-wrap` with one or more
+keys whose values are associative arrays named `build` or `use`.
+Those associative arrays should contain `pre` or `post` keys whose
+values are paths to scripts to run.  See the example below.
 
 `docker-wrap` will run any `pre` script before it runs your command,
 then run any `post` script.  A future feature will that be if a `pre`
@@ -63,7 +63,7 @@ directory.  If you set context, it will be the context.
     [X] Allow pre script to replace Dockerfile
     [ ] Allow pre script to replace docker-compose
     [X] Pre/post up scripts
-    [ ] Use `wrap` instead of `x-wrap`
+    [ ] Use wrap instead of x-wrap
     [ ] pip installable
 
 ## Contributing
