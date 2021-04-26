@@ -23,8 +23,6 @@ if version.parse(compose.__version__) < min_version:
 # Import after validating version because older ones have different submodules
 import compose.cli
 import compose.cli.main
-import compose.config
-import compose.config.validation as validation
 from compose.service import Service
 
 pp = pprint.PrettyPrinter(indent=4).pprint
