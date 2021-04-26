@@ -35,7 +35,7 @@ dicts that contain `pre` or `post` keys whose values are paths to
 scripts to run.  See the example below.
 
 `docker-wrap` will run any `pre` script before it runs your command,
-then run any `post` script.  A future feature will that if a `pre`
+then run any `post` script.  A future feature will that be if a `pre`
 script prints a valid yaml structure, `docker-wrap` will use that
 script as the `docker-compose.yml` for running the command.
 
