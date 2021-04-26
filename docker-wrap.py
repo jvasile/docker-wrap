@@ -25,6 +25,7 @@ if version.parse(compose.__version__) < min_version:
 import compose.cli  # type: ignore
 import compose.cli.main  # type: ignore
 from compose.service import Service  # type: ignore
+from compose.project import Project  # type: ignore
 
 
 @contextmanager
@@ -85,6 +86,26 @@ def advise_build() -> None:
     Service.build = build_replacement
 
 
+def advise_log_printer_from_project() -> None:
+    """Advise the log_printer_from_project function in main.py
+
+    When docker-compose creates the LogPrinter, add a list of Service
+    objects, because those have the docker-compose options in them.
+    That will make that info available to LogPrinter.run.
+
+    """
+
+    def replacement(project: Project, *args: Any, **kwargs: Any) -> None:
+        log_printer = orig(project, *args, **kwargs)
+        log_printer.services = project.services
+        return log_printer
+
+    orig = compose.cli.main.log_printer_from_project
+    compose.cli.main.log_printer_from_project = replacement
+
+
 if __name__ == "__main__":
     advise_build()
+    advise_log_printer_from_project()
+
     compose.cli.main.main()
