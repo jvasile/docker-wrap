@@ -4,7 +4,6 @@
 Monkeypatch docker-compose to call pre/post build scripts.
 """
 import os
-import pprint
 import subprocess
 import sys
 from contextlib import contextmanager
@@ -26,7 +25,6 @@ import compose.cli  # type: ignore
 import compose.cli.main  # type: ignore
 from compose.service import Service  # type: ignore
 
-pp = pprint.PrettyPrinter(indent=4).pprint
 
 
 @contextmanager
