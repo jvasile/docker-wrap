@@ -64,6 +64,7 @@ directory.  If you set context, it will be the context.
     [ ] Allow pre script to replace docker-compose
     [X] Pre/post up scripts
     [ ] Use `wrap` instead of `x-wrap`
+    [ ] pip installable
 
 ## Contributing
 
