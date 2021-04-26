@@ -59,6 +59,14 @@ Something like this would work:
 The default directory for running `pre-build.sh` will be the `foo`
 directory.  If you set context, it will be the context.
 
+## Features Roadmap
+
+[X] Pre/post build scripts
+[X] Allow pre script to replace Dockerfile
+[ ] Allow pre script to replace docker-compose
+[ ] Pre/post up scripts
+[ ] Use `wrap` instead of `x-wrap`
+
 ## Contributing
 
 Activity is in the [GitHub
