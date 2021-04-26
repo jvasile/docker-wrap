@@ -14,6 +14,9 @@ triggered by an `up` command.
 The pre-build script runs before `Dockerfile` is loaded, so you can
 *generate* your `Dockerfile` from your pre-build script.
 
+If you're just pulling an image and not building a new image, the
+pre/post build script does not run.
+
 ## Install
 
 Just `git clone` and then symlink it in to your path:
