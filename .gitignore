@@ -4,3 +4,4 @@ __pycache__
 unit_tests.html
 build
 dist
+*.egg-info
