@@ -19,12 +19,16 @@ pre/post build script does not run.
 
 ## Install
 
-Just `git clone` and then symlink it in to your path:
+If you want to install system-wide but also have edits you make here reflected in that system-wide install:
 
-    git clone https://github.com/jvasile/docker-wrap.git /path/to/wrap
-    ln -sf /path/to/wrap/docker-wrap.py /usr/local/bin/docker-wrap
+    python3 -m setup develop
 
-Eventually, we want to install like this:
+
+Or just install it like you normally would:
+
+    python3 -m setup install
+
+Eventually, this will work, but I haven't uploaded it to PyPi yet:
 
     pip3 install docker-wrap
 
